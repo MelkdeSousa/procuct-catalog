@@ -1,15 +1,13 @@
 import mongoose from "mongoose";
+import { envs } from "src/config/env";
 
-const connection = mongoose.createConnection(
-	"mongodb://localhost:27017/catalog",
-	{
-		auth: {
-			username: "root",
-			password: "password",
-		},
-		authSource: "admin",
+const connection = mongoose.createConnection(envs.DATABASE_URL, {
+	auth: {
+		username: "root",
+		password: "password",
 	},
-);
+	authSource: "admin",
+});
 
 connection.on("error", () => console.log("Could not connect to MongoDB"));
 connection.once("open", () => console.log("Connected to MongoDB"));
