@@ -2,6 +2,7 @@ import express from "express";
 import "express-async-errors";
 import morgan from "morgan";
 import z from "zod";
+import "./database/mongo/connection";
 import { zodErrorHandler } from "./express/middlewares";
 
 const app = express();
@@ -18,10 +19,10 @@ app.route("/products").post((req, res) => {
 	});
 
 	const body = bodySchema.parse(req.body);
-	
+
 	res.status(201).send(body);
 });
 
 app.use(zodErrorHandler);
 
-app.listen(3000, () => console.log("Example app listening on port 3000!"));
+app.listen(3000, () => console.log("app listening on port 3000!"));
