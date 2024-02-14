@@ -14,7 +14,12 @@ type User = {
 export const Users = new Schema<User>(
 	{
 		name: Schema.Types.String,
-		categories: [Schema.Types.ObjectId],
+		categories: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "Categories",
+			},
+		],
 		meta: Meta,
 	},
 	{ _id: false },
