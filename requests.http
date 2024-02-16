@@ -2,10 +2,11 @@
 
 
 POST {{baseURL}}/products
+X-Owner: e48e0885-4f06-40d3-9bd3-e5c70a9dfc21
 
 {
     "title": "notebook",
     "description": "notebook dell novo",
     "price": 234500,
-    "category": "eletronicos"
+    "category": "e152e68b-0a48-4fbe-88b1-e25754f864ea"
 }
