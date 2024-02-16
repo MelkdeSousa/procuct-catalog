@@ -2,14 +2,13 @@ import express from "express";
 import "express-async-errors";
 import logger from "morgan";
 import "./database/mongo/connection";
-import { session, zodErrorHandler } from "./express/middlewares";
+import { zodErrorHandler } from "./express/middlewares";
 import { productsRouter } from "./express/routes/products";
 
 const app = express();
 
 app.use(express.json());
 app.use(logger("common"));
-app.use(session);
 
 app.use("/users", productsRouter);
 
