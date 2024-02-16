@@ -3,10 +3,9 @@ import { envs } from "src/config/env";
 
 const connection = mongoose.createConnection(envs.DATABASE_URL, {
 	auth: {
-		username: "root",
+		username: "user",
 		password: "password",
 	},
-	authSource: "admin",
 });
 
 connection.on("error", () => console.log("Could not connect to MongoDB"));
