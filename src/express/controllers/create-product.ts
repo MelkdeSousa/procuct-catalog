@@ -1,8 +1,47 @@
+import { ProductModel } from "@/database/mongo/models-and-schemas/Product";
+import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { RequestHandler } from "express";
-import { ProductModel } from "src/database/mongo/models-and-schemas/Product";
-import { UserModel } from "src/database/mongo/models-and-schemas/User";
 import z from "zod";
-
+/**
+ * @swagger
+ * /users/products:
+ *   post:
+ *     summary: Create a new product
+ *     description: Create a new product
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               category:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 title:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                 price:
+ *                   type: number
+ *                 ownerId:
+ *                   type: string
+ *                 href:
+ *                   type: string
+ */
 export const createProduct: RequestHandler = async (req, res) => {
 	const bodySchema = z.object({
 		title: z.string(),
