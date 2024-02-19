@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
 import { envs } from "src/config/env";
 
-const connection = mongoose.createConnection(envs.DATABASE_URL, {
-	auth: {
-		username: "user",
-		password: "password",
-	},
-});
+const connection = async () => {
+	await mongoose.connect(envs.DATABASE_URL, {
+		auth: {
+			username: "user",
+			password: "password",
+		},
+	});
+};
 
-connection.on("error", () => console.log("Could not connect to MongoDB"));
-connection.once("open", () => console.log("Connected to MongoDB"));
+connection()
+	.then(() => console.log("MongoDB connected"))
+	.catch((err) => console.log("MongoDB connection error", err));
