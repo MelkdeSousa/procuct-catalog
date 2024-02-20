@@ -1,12 +1,19 @@
 @baseURL=http://localhost:3333/users
 
-
 POST {{baseURL}}/products
-X-Owner: e48e0885-4f06-40d3-9bd3-e5c70a9dfc21
+X-Owner: 2738ae57-edff-40a6-90a1-ea92fec15648
 
 {
     "title": "notebook",
     "description": "notebook dell novo",
     "price": 234500,
     "category": "e152e68b-0a48-4fbe-88b1-e25754f864ea"
+}
+
+###
+
+POST {{baseURL}}/
+
+{
+    "name": "Melk de Sousa"
 }

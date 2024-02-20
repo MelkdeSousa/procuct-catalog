@@ -1,4 +1,5 @@
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
+import { toUserOutput } from "@/dtos/user";
 import { RequestHandler } from "express";
 import z from "zod";
 
@@ -8,26 +9,17 @@ import z from "zod";
  *   post:
  *     summary: Create a new user
  *     requestBody:
- *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *             required:
- *               - name
+ *             $ref: '#/components/schemas/CreateUserRequest'
  *     responses:
  *       201:
  *         description: User created successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 name:
- *                   type: string
+ *               $ref: '#/components/schemas/CreateUserResponse'
  */
 export const createUser: RequestHandler = async (req, res) => {
 	const bodySchema = z.object({
@@ -37,8 +29,9 @@ export const createUser: RequestHandler = async (req, res) => {
 	const body = bodySchema.parse(req.body);
 	const user = new UserModel({
 		name: body.name,
+		_id: crypto.randomUUID(),
 	});
 
 	await user.save();
-	return res.send(user).status(201);
+	return res.send(toUserOutput(user)).status(201);
 };
