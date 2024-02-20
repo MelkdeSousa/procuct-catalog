@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { Meta } from "./Meta";
 
-type Product = {
+export type Product = {
 	_id: Schema.Types.UUID;
 	title: string;
 	description: string;

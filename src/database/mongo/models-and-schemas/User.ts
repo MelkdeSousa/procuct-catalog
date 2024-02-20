@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { Meta } from "./Meta";
 
-type User = {
+export type User = {
 	_id: Schema.Types.UUID;
 	name: string;
 	categories: Schema.Types.UUID[];
