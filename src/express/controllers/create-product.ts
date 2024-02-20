@@ -1,46 +1,34 @@
 import { ProductModel } from "@/database/mongo/models-and-schemas/Product";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
+import { toProductOutput } from "@/dtos/product";
 import { RequestHandler } from "express";
 import z from "zod";
+
 /**
  * @swagger
  * /users/products:
  *   post:
  *     summary: Create a new product
  *     description: Create a new product
+ *     parameters:
+ *       - in: header
+ *         name: X-Owner
+ *         schema:
+ *           type: string
+ *           required: true
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *               description:
- *                 type: string
- *               price:
- *                 type: number
- *               category:
- *                 type: string
+ *             $ref: '#/components/schemas/CreateProductRequest'
  *     responses:
  *       201:
  *         description: Created
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 title:
- *                   type: string
- *                 description:
- *                   type: string
- *                 price:
- *                   type: number
- *                 ownerId:
- *                   type: string
- *                 href:
- *                   type: string
+ *               $ref: '#/components/schemas/CreateProductResponse'
  */
 export const createProduct: RequestHandler = async (req, res) => {
 	const bodySchema = z.object({
@@ -67,15 +55,14 @@ export const createProduct: RequestHandler = async (req, res) => {
 		return;
 	}
 
-	console.log(owner);
-
 	const product = new ProductModel({
 		...body,
+		_id: crypto.randomUUID(),
 		categoryId: body.category,
 		ownerId,
 	});
 
 	await product.save();
 
-	res.status(201).send({ ...body, ownerId, href: `/products/${product._id}` });
+	res.status(201).send(toProductOutput(product));
 };
