@@ -12,14 +12,14 @@ const options = {
 				name: "Licensed Under MIT",
 				url: "https://spdx.org/licenses/MIT.html",
 			},
-			contact: {
-				name: "JSONPlaceholder",
-				url: "https://jsonplaceholder.typicode.com",
-			},
+			// contact: {
+			// 	name: "JSONPlaceholder",
+			// 	url: "https://jsonplaceholder.typicode.com",
+			// },
 		},
 		servers: [
 			{
-				url: "http://localhost:3000",
+				url: "http://localhost:3333",
 				description: "Development server",
 			},
 		],
