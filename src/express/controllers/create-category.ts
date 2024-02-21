@@ -1,6 +1,7 @@
 import { CategoryModel } from "@/database/mongo/models-and-schemas/Category";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toCategoryOutput } from "@/dtos/category";
+import { headersSchema } from "@/schemas";
 import { RequestHandler } from "express";
 import z from "zod";
 
@@ -30,14 +31,6 @@ export const createCategory: RequestHandler = async (req, res) => {
 	const bodySchema = z.object({
 		title: z.string(),
 		description: z.string(),
-	});
-
-	const headersSchema = z.object({
-		"x-owner": z
-			.string({
-				required_error: "owner id must declare in the header of request",
-			})
-			.uuid(),
 	});
 
 	const { "x-owner": ownerId } = headersSchema.parse(req.headers);

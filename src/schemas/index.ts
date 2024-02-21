@@ -13,3 +13,11 @@ export const limitSchema = z
 	.transform(Number)
 	.optional()
 	.default("10");
+
+export const headersSchema = z.object({
+	"x-owner": z
+		.string({
+			required_error: "owner id must declare in the header of request",
+		})
+		.uuid(),
+});

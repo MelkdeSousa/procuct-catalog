@@ -1,6 +1,7 @@
 import { ProductModel } from "@/database/mongo/models-and-schemas/Product";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toProductOutput } from "@/dtos/product";
+import { headersSchema } from "@/schemas";
 import { RequestHandler } from "express";
 import z from "zod";
 
@@ -32,14 +33,6 @@ export const createProduct: RequestHandler = async (req, res) => {
 		description: z.string(),
 		price: z.number(),
 		category: z.string().uuid(),
-	});
-
-	const headersSchema = z.object({
-		"x-owner": z
-			.string({
-				required_error: "owner id must declare in the header of request",
-			})
-			.uuid(),
 	});
 
 	const { "x-owner": ownerId } = headersSchema.parse(req.headers);
