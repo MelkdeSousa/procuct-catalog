@@ -1,9 +1,12 @@
 import { User } from "@/database/mongo/models-and-schemas/User";
 
 export const toUserOutput = (user: User) => {
+	if (!user._id) return;
+
 	return {
 		id: user._id,
-		name: user.name,
-		categories: user.categories,
+		categories: user.categories.map(({ _id: id }) => ({
+			id,
+		})),
 	};
 };

@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import z from "zod";
 
 export const pageSchema = z
@@ -19,5 +20,7 @@ export const headersSchema = z.object({
 		.string({
 			required_error: "owner id must declare in the header of request",
 		})
-		.uuid(),
+		.length(24)
+		.regex(/[0-9a-f]{24}/, "this is not a valid owner id")
+		.transform((value) => new Types.ObjectId(value)),
 });
