@@ -41,7 +41,9 @@ export const listUsers: RequestHandler = async (req, res) => {
 	const users = await UserModel.find()
 		.limit(limit * 1)
 		.skip((page - 1) * limit)
-		.populate("categories");
+		.populate({
+			path: "categories",
+		});
 
 	const totalUsers = await UserModel.countDocuments();
 

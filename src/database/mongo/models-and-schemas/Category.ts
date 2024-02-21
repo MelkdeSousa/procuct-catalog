@@ -2,10 +2,10 @@ import { Schema, model } from "mongoose";
 import { Meta } from "./Meta";
 
 export type Category = {
-	_id: Schema.Types.UUID;
+	_id: Schema.Types.ObjectId;
 	title: string;
 	description: string;
-	ownerId: Schema.Types.UUID;
+	ownerId: Schema.Types.ObjectId;
 	meta: {
 		version: number;
 		createdAt: Date;
@@ -14,10 +14,9 @@ export type Category = {
 };
 
 export const Categories = new Schema<Category>({
-	_id: Schema.Types.UUID,
 	title: Schema.Types.String,
 	description: Schema.Types.String,
-	ownerId: { type: Schema.Types.UUID, ref: "users" },
+	ownerId: { type: Schema.Types.ObjectId, ref: "users" },
 	meta: Meta,
 });
 

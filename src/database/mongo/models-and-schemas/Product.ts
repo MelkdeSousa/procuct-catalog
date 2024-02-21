@@ -2,12 +2,12 @@ import { Schema, model } from "mongoose";
 import { Meta } from "./Meta";
 
 export type Product = {
-	_id: Schema.Types.UUID;
+	_id: Schema.Types.ObjectId;
 	title: string;
 	description: string;
 	price: number;
-	categoryId: Schema.Types.UUID;
-	ownerId: Schema.Types.UUID;
+	categoryId: Schema.Types.ObjectId;
+	ownerId: Schema.Types.ObjectId;
 	meta: {
 		version: number;
 		createdAt: Date;
@@ -16,16 +16,16 @@ export type Product = {
 };
 
 export const Products = new Schema<Product>({
-	_id: Schema.Types.UUID,
+	_id: Schema.Types.ObjectId,
 	title: Schema.Types.String,
 	description: Schema.Types.String,
 	price: Schema.Types.Number,
 	categoryId: {
-		type: Schema.Types.UUID,
+		type: Schema.Types.ObjectId,
 		ref: "categories",
 	},
 	ownerId: {
-		type: Schema.Types.UUID,
+		type: Schema.Types.ObjectId,
 		ref: "users",
 	},
 	meta: Meta,

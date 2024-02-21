@@ -44,7 +44,6 @@ export const createCategory: RequestHandler = async (req, res) => {
 
 	const product = new CategoryModel({
 		...body,
-		_id: crypto.randomUUID(),
 		ownerId,
 	});
 

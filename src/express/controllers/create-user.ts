@@ -29,7 +29,6 @@ export const createUser: RequestHandler = async (req, res) => {
 	const body = bodySchema.parse(req.body);
 	const user = new UserModel({
 		name: body.name,
-		_id: crypto.randomUUID(),
 	});
 
 	await user.save();
