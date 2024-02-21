@@ -8,6 +8,6 @@ export const toProductOutput = (product: Product) => {
 		price: product.price,
 		categoryId: product.categoryId,
 		ownerId: product.ownerId,
-		href: `/users/products/${product._id}`,
+		// href: `/users/products/${product._id}`,
 	};
 };

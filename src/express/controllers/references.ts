@@ -78,8 +78,6 @@
  *           type: string
  *         ownerId:
  *           type: string
- *         href:
- *           type: string
  *
  *     CreateCategoryRequest:
  *       type: object
