@@ -1,3 +1,4 @@
+import { CategoryModel } from "@/database/mongo/models-and-schemas/Category";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toUserOutput } from "@/dtos/user";
 import { limitSchema, pageSchema } from "@/schemas/query";
@@ -37,15 +38,11 @@ export const listUsers: RequestHandler = async (req, res) => {
 	});
 
 	const { limit, page } = querySchema.parse(req.query);
-	console.log(
-		"🚀 ~ constlistUsers:RequestHandler= ~ limit, page:",
-		limit,
-		page,
-	);
 
 	const users = await UserModel.find()
 		.limit(limit * 1)
 		.skip((page - 1) * limit)
+		.populate("categories", "title", CategoryModel)
 		.exec();
 
 	const totalUsers = await UserModel.countDocuments();

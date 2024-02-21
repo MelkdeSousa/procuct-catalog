@@ -22,13 +22,13 @@ export const Products = new Schema<Product>({
 	price: Schema.Types.Number,
 	categoryId: {
 		type: Schema.Types.UUID,
-		ref: "Categories",
+		ref: "categories",
 	},
 	ownerId: {
 		type: Schema.Types.UUID,
-		ref: "Users",
+		ref: "users",
 	},
 	meta: Meta,
 });
 
-export const ProductModel = model<Product>("Products", Products);
+export const ProductModel = model<Product>("products", Products);

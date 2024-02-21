@@ -19,7 +19,7 @@ export const Users = new Schema<User>(
 		categories: [
 			{
 				type: Schema.Types.UUID,
-				ref: "Categories",
+				ref: "categories",
 			},
 		],
 		meta: Meta,
@@ -27,4 +27,4 @@ export const Users = new Schema<User>(
 	{ _id: false },
 );
 
-export const UserModel = model<User>("Users", Users);
+export const UserModel = model<User>("users", Users);
