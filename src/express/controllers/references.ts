@@ -88,12 +88,9 @@
  *           type: string
  *         description:
  *           type: string
- *         ownerId:
- *           types: string
  *       required:
  *         - title
  *         - description
- *         - ownerId
  *
  *     CreateCategoryResponse:
  *       type: object

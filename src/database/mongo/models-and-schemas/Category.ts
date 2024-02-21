@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { Meta } from "./Meta";
 
-type Category = {
+export type Category = {
 	_id: Schema.Types.UUID;
 	title: string;
 	description: string;
@@ -17,8 +17,8 @@ export const Categories = new Schema<Category>({
 	_id: Schema.Types.UUID,
 	title: Schema.Types.String,
 	description: Schema.Types.String,
-	ownerId: { type: Schema.Types.UUID, ref: "Users" },
+	ownerId: { type: Schema.Types.UUID, ref: "users" },
 	meta: Meta,
 });
 
-export const CategoryModel = model<Category>("Categories", Categories);
+export const CategoryModel = model<Category>("categories", Categories);

@@ -6,6 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import { openapiSpecification } from "./config/openapiSpecs";
 import "./database/mongo/connection";
 import { zodErrorHandler } from "./express/middlewares";
+import { categoriesRouter } from "./express/routes/categories";
 import { productsRouter } from "./express/routes/products";
 import { usersRouter } from "./express/routes/users";
 
@@ -23,7 +24,7 @@ app.use(
 	}),
 );
 
-app.use("/users", usersRouter, productsRouter);
+app.use("/users", usersRouter, productsRouter, categoriesRouter);
 
 app.use(zodErrorHandler);
 
