@@ -11,18 +11,8 @@ import z from "zod";
  *     summary: Get a list of users
  *     description: Retrieve a paginated list of users
  *     parameters:
- *       - name: page
- *         in: query
- *         description: The page number to retrieve
- *         required: false
- *         schema:
- *           type: integer
- *       - name: limit
- *         in: query
- *         description: The number of items per page
- *         required: false
- *         schema:
- *           type: integer
+ *       - $ref: '#/components/parameters/Page'
+ *       - $ref: '#/components/parameters/Limit'
  *     responses:
  *       '200':
  *         description: A JSON array of users

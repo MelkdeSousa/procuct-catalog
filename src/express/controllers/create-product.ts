@@ -11,11 +11,7 @@ import z from "zod";
  *     summary: Create a new product
  *     description: Create a new product
  *     parameters:
- *       - in: header
- *         name: X-Owner
- *         schema:
- *           type: string
- *           required: true
+ *       - $ref: '#/components/parameters/X-Owner'
  *     requestBody:
  *       required: true
  *       content:
