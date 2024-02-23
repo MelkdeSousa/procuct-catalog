@@ -9,6 +9,13 @@
  *           schema:
  *             $ref: '#/components/schemas/CommonError'
  *
+ *     NotFoundProduct:
+ *       description: When a product not found
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CommonError'
+ *
  *   parameters:
  *     X-Owner:
  *       in: header
@@ -86,6 +93,18 @@
  *           type: string
  *           nullable: true
  *         ownerId:
+ *           type: string
+ *
+ *     UpdateProductRequest:
+ *       type: object
+ *       properties:
+ *         title:
+ *           type: string
+ *         description:
+ *           type: string
+ *         price:
+ *           type: integer
+ *         category:
  *           type: string
  *
  *     CreateCategoryRequest:
