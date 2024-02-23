@@ -15,12 +15,11 @@ export const limitSchema = z
 	.optional()
 	.default("10");
 
+export const objectIdSchema = z
+	.string()
+	.refine(Types.ObjectId.isValid)
+	.transform((value) => new Types.ObjectId(value));
+
 export const headersSchema = z.object({
-	"x-owner": z
-		.string({
-			required_error: "owner id must declare in the header of request",
-		})
-		.length(24)
-		.regex(/[0-9a-f]{24}/, "this is not a valid owner id")
-		.transform((value) => new Types.ObjectId(value)),
+	"x-owner": objectIdSchema,
 });

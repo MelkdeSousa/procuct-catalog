@@ -1,6 +1,14 @@
 /**
  * @swagger
  * components:
+ *   responses:
+ *     NotFoundOwnerOrCategory:
+ *       description: When a owner or a category not found
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CommonError'
+ *
  *   parameters:
  *     X-Owner:
  *       in: header
@@ -57,9 +65,9 @@
  *           type: integer
  *         category:
  *           type: string
+ *           required: false
  *       required:
  *         - title
- *         - category
  *         - price
  *         - description
  *
@@ -76,6 +84,7 @@
  *           type: integer
  *         categoryId:
  *           type: string
+ *           nullable: true
  *         ownerId:
  *           type: string
  *
@@ -101,4 +110,12 @@
  *           type: string
  *         ownerId:
  *           types: string
+ *
+ *     CommonError:
+ *        type: object
+ *        properties:
+ *          error:
+ *            type: string
+ *        required:
+ *          - error
  */

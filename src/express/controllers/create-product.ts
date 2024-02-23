@@ -1,7 +1,8 @@
+import { CategoryModel } from "@/database/mongo/models-and-schemas/Category";
 import { ProductModel } from "@/database/mongo/models-and-schemas/Product";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toProductOutput } from "@/dtos/product";
-import { headersSchema } from "@/schemas";
+import { headersSchema, objectIdSchema } from "@/schemas";
 import { RequestHandler } from "express";
 import z from "zod";
 
@@ -26,13 +27,15 @@ import z from "zod";
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/CreateProductResponse'
+ *       404:
+ *         $ref: '#/components/responses/NotFoundOwnerOrCategory'
  */
 export const createProduct: RequestHandler = async (req, res) => {
 	const bodySchema = z.object({
 		title: z.string(),
 		description: z.string(),
 		price: z.number(),
-		category: z.string().uuid(),
+		category: objectIdSchema.optional(),
 	});
 
 	const { "x-owner": ownerId } = headersSchema.parse(req.headers);
@@ -46,10 +49,18 @@ export const createProduct: RequestHandler = async (req, res) => {
 
 	const product = new ProductModel({
 		...body,
-		_id: crypto.randomUUID(),
-		categoryId: body.category,
 		ownerId,
 	});
+
+	if (body.category) {
+		const category = await CategoryModel.findById(body.category).exec();
+
+		if (!category) {
+			res.status(404).send({ error: "category not found" });
+			return;
+		}
+		product.categoryId = category.id;
+	}
 
 	await product.save();
 

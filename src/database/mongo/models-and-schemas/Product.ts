@@ -16,7 +16,6 @@ export type Product = {
 };
 
 export const Products = new Schema<Product>({
-	_id: Schema.Types.ObjectId,
 	title: Schema.Types.String,
 	description: Schema.Types.String,
 	price: Schema.Types.Number,
