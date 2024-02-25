@@ -28,7 +28,17 @@ services:
     restart: unless-stopped
     ports:
       - "8081:8081"
+  
+  redis:
+    image: bitnami/redis:latest
+    ports:
+      - '6379:6379'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'products_catalog_redis_data:/bitnami/redis/data'
 
 volumes:
   mongodb_data:
     driver: local
+  products_catalog_redis_data:

@@ -23,6 +23,7 @@
   "dependencies": {
     "@aws-sdk/client-sns": "^3.516.0",
     "@scalar/express-api-reference": "^0.2.51",
+    "bee-queue": "^1.7.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "express-session": "^1.18.0",
