@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { Meta } from "./Meta";
+import { Product } from "./Product";
 
 export type Category = {
 	_id: Schema.Types.ObjectId;
@@ -11,6 +12,10 @@ export type Category = {
 		createdAt: Date;
 		updatedAt: Date;
 	};
+};
+
+export type CategoryAndProducts = Category & {
+	products: Product[];
 };
 
 export const Categories = new Schema<Category>({

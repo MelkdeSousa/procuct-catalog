@@ -1,14 +1,14 @@
 import "@/database/mongo/connection";
 import {
-	Category,
+	CategoryAndProducts,
 	CategoryModel,
 } from "@/database/mongo/models-and-schemas/Category";
-import { Product } from "@/database/mongo/models-and-schemas/Product";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { queues } from "@/services/queue";
 import { Upload } from "@aws-sdk/lib-storage";
 
 import { envs } from "@/config/env";
+import { toCatalogOutput } from "@/dtos/catalog";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Readable } from "stream";
 
@@ -24,7 +24,7 @@ const client = new S3Client({
 queues["catalog-emit"].process(async ({ data: ownerId }) => {
 	const owner = await UserModel.findById(ownerId);
 
-	const products = (await CategoryModel.aggregate([
+	const categories: CategoryAndProducts[] = await CategoryModel.aggregate([
 		{
 			$match: {
 				ownerId: owner?._id,
@@ -38,20 +38,9 @@ queues["catalog-emit"].process(async ({ data: ownerId }) => {
 				as: "products",
 			},
 		},
-	])) as (Category & { products: Product[] })[];
+	]);
 
-	const catalog = {
-		owner: owner?.name,
-		catalog: products.map((p) => ({
-			category_title: p.title,
-			category_description: p.description,
-			items: p.products.map((p) => ({
-				tile: p.title,
-				description: p.description,
-				price: p.price,
-			})),
-		})),
-	};
+	const catalog = toCatalogOutput(owner!, categories);
 
 	const jsonStream = new Readable({
 		read() {

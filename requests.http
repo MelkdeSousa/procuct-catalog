@@ -34,9 +34,14 @@ GET {{baseURL}}/
 
 ### Atualizar um produto
 
-PUT {{baseURL}}/products/65dd464417d66546e8616ae6
-X-Owner: 65dd3ee1974c7ee15f7c4004 
+# PUT {{baseURL}}/products/65dd464417d66546e8616ae6
+# X-Owner: 65dd3ee1974c7ee15f7c4004 
+# {
+#   "price": 2020000
+# }
+PUT {{baseURL}}/products/65d80aca20bd207bc907f84b
+X-Owner: 65d622aa8ad2fc8634aa83d6
 
 {
-  "price": 2000000
+  "price": 100000
 }
