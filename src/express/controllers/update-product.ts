@@ -60,20 +60,22 @@ export const updateProduct: RequestHandler = async (req, res) => {
 		return;
 	}
 
-	const product = await ProductModel.findById(id).exec();
+	const product = await ProductModel.findOneAndUpdate(
+		id,
+		{
+			categoryId: body?.category,
+			title: body?.title,
+			price: body?.price,
+			description: body?.description,
+		},
+		{ new: true },
+	).exec();
 	if (!product) {
 		res.status(404).send({ error: "product not found" });
 		return;
 	}
 
-	await product.updateOne({
-		categoryId: body.category,
-		title: body.title,
-		price: body.price,
-		description: body.description,
-	});
-
-	await queue.publish('catalog-emit', ownerId.toString())
+	await queue.publish("catalog-emit", ownerId.toString());
 
 	res.status(201).send(toProductOutput(product));
 };

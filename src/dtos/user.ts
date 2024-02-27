@@ -5,7 +5,7 @@ export const toUserOutput = (user: User) => {
 
 	return {
 		id: user._id,
-		categories: user.categories.map(({ _id: id }) => ({
+		categories: user?.categories?.map(({ _id: id }) => ({
 			id,
 		})),
 	};

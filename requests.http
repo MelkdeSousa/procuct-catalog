@@ -1,19 +1,42 @@
 @baseURL=http://localhost:3333/users
 
+### Criar um produto
+
 POST {{baseURL}}/products
-X-Owner: 2738ae57-edff-40a6-90a1-ea92fec15648
+# Melk de Sousa
+X-Owner: 65dd3ee1974c7ee15f7c4004 
+
+# {
+#     "title": "notebook",
+#     "description": "notebook dell novo",
+#     "price": 234500,
+#     "category": "e152e68b-0a48-4fbe-88b1-e25754f864ea"
+# }
 
 {
-    "title": "notebook",
-    "description": "notebook dell novo",
-    "price": 234500,
-    "category": "e152e68b-0a48-4fbe-88b1-e25754f864ea"
+  "title": "Titan 160",
+  "description": "HONDA Titan 160 Cinza",
+  "price": 1500000,
+  "category": "65dd3f07974c7ee15f7c4007" 
 }
 
-###
+### Criar usuário
 
 POST {{baseURL}}/
 
 {
     "name": "Melk de Sousa"
+}
+
+### Listar usuários
+
+GET {{baseURL}}/
+
+### Atualizar um produto
+
+PUT {{baseURL}}/products/65dd464417d66546e8616ae6
+X-Owner: 65dd3ee1974c7ee15f7c4004 
+
+{
+  "price": 2000000
 }
