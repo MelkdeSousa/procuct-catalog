@@ -13,6 +13,7 @@
   "author": "Melk de Sousa",
   "license": "ISC",
   "devDependencies": {
+    "@biomejs/biome": "1.5.3",
     "@types/express": "^4.17.21",
     "@types/express-session": "^1.17.10",
     "@types/morgan": "^1.9.9",
