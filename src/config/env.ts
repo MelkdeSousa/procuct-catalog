@@ -9,6 +9,10 @@ export const EnvSchema = z.object({
 		.string()
 		.refine((val) => !Number.isNaN(val))
 		.transform(Number),
+	CLOUDFLARE_R2_ACCESS_KEY_ID: z.string(),
+	CLOUDFLARE_R2_SECRET_ACCESS_KEY: z.string(),
+	CLOUDFLARE_R2_BUCKET_NAME: z.string(),
+	CLOUDFLARE_ACCOUNT_ID: z.string(),
 });
 
 export const envs = EnvSchema.parse(process.env);

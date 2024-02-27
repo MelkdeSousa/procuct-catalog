@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --env-file=.env src/server.ts",
+    "dev:http": "tsx watch --env-file=.env src/server.ts",
+    "dev:queue": "tsx watch --env-file=.env src/consumers/catalog.ts",
+    "dev:start": "concurrently -n http,queue \"npm run dev:http\" \"npm run dev:queue\"",
     "build": "tsc --build"
   },
   "keywords": [],
@@ -17,11 +19,14 @@
     "@types/node": "^20.11.17",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
+    "concurrently": "^8.2.2",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.521.0",
     "@aws-sdk/client-sns": "^3.516.0",
+    "@aws-sdk/lib-storage": "^3.521.0",
     "@scalar/express-api-reference": "^0.2.51",
     "bee-queue": "^1.7.1",
     "express": "^4.18.2",

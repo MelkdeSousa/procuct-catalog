@@ -6,8 +6,20 @@ import {
 import { Product } from "@/database/mongo/models-and-schemas/Product";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { queues } from "@/services/queue";
-import { writeFile } from "fs/promises";
-import path from "path";
+import { Upload } from "@aws-sdk/lib-storage";
+
+import { envs } from "@/config/env";
+import { S3Client } from "@aws-sdk/client-s3";
+import { Readable } from "stream";
+
+const client = new S3Client({
+	credentials: {
+		accessKeyId: envs.CLOUDFLARE_R2_ACCESS_KEY_ID,
+		secretAccessKey: envs.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
+	},
+	endpoint: `https://${envs.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+	region: "auto",
+});
 
 queues["catalog-emit"].process(async ({ data: ownerId }) => {
 	const owner = await UserModel.findById(ownerId);
@@ -41,12 +53,23 @@ queues["catalog-emit"].process(async ({ data: ownerId }) => {
 		})),
 	};
 
-	await writeFile(
-		path.join(process.cwd(), "tmp", `${ownerId}-catalog.json`),
-		JSON.stringify(catalog, null, 2),
-	);
-	// criar um arquivo json com as categorias e os produtos
-	// publicar o arquivo no bucket
+	const jsonStream = new Readable({
+		read() {
+			this.push(JSON.stringify(catalog));
+			this.push(null);
+		},
+	});
+
+	const upload = new Upload({
+		client,
+		params: {
+			Bucket: envs.CLOUDFLARE_R2_BUCKET_NAME,
+			Key: `${ownerId}-catalog.json`,
+			Body: jsonStream,
+		},
+	});
+
+	await upload.done();
 
 	return;
 });
