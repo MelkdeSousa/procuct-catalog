@@ -33,32 +33,32 @@ import z from "zod";
  *                   type: integer
  */
 export const listCategories: RequestHandler = async (req, res) => {
-	const querySchema = z.object({
-		page: pageSchema,
-		limit: limitSchema,
-	});
+  const querySchema = z.object({
+    page: pageSchema,
+    limit: limitSchema,
+  });
 
-	const { limit, page } = querySchema.parse(req.query);
-	const { "x-owner": ownerId } = headersSchema.parse(req.headers);
+  const { limit, page } = querySchema.parse(req.query);
+  const { "x-owner": ownerId } = headersSchema.parse(req.headers);
 
-	const owner = await UserModel.findById(ownerId).exec();
-	if (!owner) {
-		res.status(404).send({ error: "owner not found" });
-		return;
-	}
+  const owner = await UserModel.findById(ownerId).exec();
+  if (!owner) {
+    res.status(404).send({ error: "owner not found" });
+    return;
+  }
 
-	const categories = await CategoryModel.find({ ownerId })
-		.limit(limit * 1)
-		.skip((page - 1) * limit)
-		.exec();
+  const categories = await CategoryModel.find({ ownerId })
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .exec();
 
-	const totalDocs = await CategoryModel.countDocuments();
+  const totalDocs = await CategoryModel.countDocuments();
 
-	return res
-		.json({
-			categories: categories.map(toCategoryOutput),
-			totalPages: Math.ceil(totalDocs / limit),
-			currentPage: page,
-		})
-		.status(200);
+  return res
+    .json({
+      categories: categories.map(toCategoryOutput),
+      totalPages: Math.ceil(totalDocs / limit),
+      currentPage: page,
+    })
+    .status(200);
 };

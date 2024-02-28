@@ -31,27 +31,27 @@ import z from "zod";
  *                   type: integer
  */
 export const listUsers: RequestHandler = async (req, res) => {
-	const querySchema = z.object({
-		page: pageSchema,
-		limit: limitSchema,
-	});
+  const querySchema = z.object({
+    page: pageSchema,
+    limit: limitSchema,
+  });
 
-	const { limit, page } = querySchema.parse(req.query);
+  const { limit, page } = querySchema.parse(req.query);
 
-	const users = await UserModel.find()
-		.limit(limit * 1)
-		.skip((page - 1) * limit)
-		.populate({
-			path: "categories",
-		});
+  const users = await UserModel.find()
+    .limit(limit * 1)
+    .skip((page - 1) * limit)
+    .populate({
+      path: "categories",
+    });
 
-	const totalUsers = await UserModel.countDocuments();
+  const totalUsers = await UserModel.countDocuments();
 
-	return res
-		.json({
-			users: users.map(toUserOutput),
-			totalPages: Math.ceil(totalUsers / limit),
-			currentPage: page,
-		})
-		.status(200);
+  return res
+    .json({
+      users: users.map(toUserOutput),
+      totalPages: Math.ceil(totalUsers / limit),
+      currentPage: page,
+    })
+    .status(200);
 };

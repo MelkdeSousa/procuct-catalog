@@ -28,26 +28,26 @@ import z from "zod";
  *               $ref: '#/components/schemas/CreateCategoryResponse'
  */
 export const createCategory: RequestHandler = async (req, res) => {
-	const bodySchema = z.object({
-		title: z.string(),
-		description: z.string(),
-	});
+  const bodySchema = z.object({
+    title: z.string(),
+    description: z.string(),
+  });
 
-	const { "x-owner": ownerId } = headersSchema.parse(req.headers);
-	const body = bodySchema.parse(req.body);
+  const { "x-owner": ownerId } = headersSchema.parse(req.headers);
+  const body = bodySchema.parse(req.body);
 
-	const owner = await UserModel.findById(ownerId).exec();
-	if (!owner) {
-		res.status(404).send({ error: "owner not found" });
-		return;
-	}
+  const owner = await UserModel.findById(ownerId).exec();
+  if (!owner) {
+    res.status(404).send({ error: "owner not found" });
+    return;
+  }
 
-	const product = new CategoryModel({
-		...body,
-		ownerId,
-	});
+  const product = new CategoryModel({
+    ...body,
+    ownerId,
+  });
 
-	await product.save();
+  await product.save();
 
-	res.status(201).send(toCategoryOutput(product));
+  res.status(201).send(toCategoryOutput(product));
 };

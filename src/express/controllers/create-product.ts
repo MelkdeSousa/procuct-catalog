@@ -32,40 +32,40 @@ import z from "zod";
  *         $ref: '#/components/responses/NotFoundOwnerOrCategory'
  */
 export const createProduct: RequestHandler = async (req, res) => {
-	const bodySchema = z.object({
-		title: z.string(),
-		description: z.string(),
-		price: z.number(),
-		category: objectIdSchema.optional(),
-	});
+  const bodySchema = z.object({
+    title: z.string(),
+    description: z.string(),
+    price: z.number(),
+    category: objectIdSchema.optional(),
+  });
 
-	const { "x-owner": ownerId } = headersSchema.parse(req.headers);
-	const body = bodySchema.parse(req.body);
+  const { "x-owner": ownerId } = headersSchema.parse(req.headers);
+  const body = bodySchema.parse(req.body);
 
-	const owner = await UserModel.findById(ownerId).exec();
-	if (!owner) {
-		res.status(404).send({ error: "owner not found" });
-		return;
-	}
+  const owner = await UserModel.findById(ownerId).exec();
+  if (!owner) {
+    res.status(404).send({ error: "owner not found" });
+    return;
+  }
 
-	const product = new ProductModel({
-		...body,
-		ownerId,
-	});
+  const product = new ProductModel({
+    ...body,
+    ownerId,
+  });
 
-	if (body.category) {
-		const category = await CategoryModel.findById(body.category).exec();
+  if (body.category) {
+    const category = await CategoryModel.findById(body.category).exec();
 
-		if (!category) {
-			res.status(404).send({ error: "category not found" });
-			return;
-		}
-		product.categoryId = category.id;
-	}
+    if (!category) {
+      res.status(404).send({ error: "category not found" });
+      return;
+    }
+    product.categoryId = category.id;
+  }
 
-	await product.save();
+  await product.save();
 
-	await queue.publish('catalog-emit', ownerId.toString())
+  await queue.publish("catalog-emit", ownerId.toString());
 
-	res.status(201).send(toProductOutput(product));
+  res.status(201).send(toProductOutput(product));
 };

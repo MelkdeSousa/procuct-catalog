@@ -22,15 +22,15 @@ import z from "zod";
  *               $ref: '#/components/schemas/CreateUserResponse'
  */
 export const createUser: RequestHandler = async (req, res) => {
-	const bodySchema = z.object({
-		name: z.string(),
-	});
+  const bodySchema = z.object({
+    name: z.string(),
+  });
 
-	const body = bodySchema.parse(req.body);
-	const user = new UserModel({
-		name: body.name,
-	});
+  const body = bodySchema.parse(req.body);
+  const user = new UserModel({
+    name: body.name,
+  });
 
-	await user.save();
-	return res.send(toUserOutput(user)).status(201);
+  await user.save();
+  return res.send(toUserOutput(user)).status(201);
 };

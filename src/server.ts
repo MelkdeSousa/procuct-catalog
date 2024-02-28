@@ -16,12 +16,12 @@ app.use(express.json());
 app.use(logger("common"));
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 app.use(
-	"/reference",
-	apiReference({
-		spec: {
-			content: openapiSpecification,
-		},
-	}),
+  "/reference",
+  apiReference({
+    spec: {
+      content: openapiSpecification,
+    },
+  }),
 );
 
 app.use("/users", usersRouter, productsRouter, categoriesRouter);
