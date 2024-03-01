@@ -3,6 +3,7 @@ import express from "express";
 import "express-async-errors";
 import logger from "morgan";
 import swaggerUi from "swagger-ui-express";
+import { envs } from "./config/env";
 import { openapiSpecification } from "./config/openapiSpecs";
 import "./database/mongo/connection";
 import { zodErrorHandler } from "./express/middlewares";
@@ -28,4 +29,4 @@ app.use("/users", usersRouter, productsRouter, categoriesRouter);
 
 app.use(zodErrorHandler);
 
-app.listen(3333, () => console.log("app listening on port 3333!"));
+app.listen(envs.PORT, () => console.log(`app listening on port ${envs.PORT}!`));

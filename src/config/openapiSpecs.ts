@@ -19,12 +19,12 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3333",
+        url: "http://localhost:3000",
         description: "Development server",
       },
     ],
   },
-  apis: ["src/express/controllers/*.ts"],
+  apis: ["src/express/controllers/**/*.ts"],
 };
 
 export const openapiSpecification = swaggerJSDoc(options);
