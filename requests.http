@@ -1,24 +1,5 @@
-@baseURL=http://localhost:3333/users
-
-### Criar um produto
-
-POST {{baseURL}}/products
-# Melk de Sousa
-X-Owner: 65dd3ee1974c7ee15f7c4004 
-
-# {
-#     "title": "notebook",
-#     "description": "notebook dell novo",
-#     "price": 234500,
-#     "category": "e152e68b-0a48-4fbe-88b1-e25754f864ea"
-# }
-
-{
-  "title": "Titan 160",
-  "description": "HONDA Titan 160 Cinza",
-  "price": 1500000,
-  "category": "65dd3f07974c7ee15f7c4007" 
-}
+@port=3000
+@baseURL=http://localhost:{{port}}/users
 
 ### Criar usuário
 
@@ -32,16 +13,38 @@ POST {{baseURL}}/
 
 GET {{baseURL}}/
 
-### Atualizar um produto
-
-# PUT {{baseURL}}/products/65dd464417d66546e8616ae6
-# X-Owner: 65dd3ee1974c7ee15f7c4004 
-# {
-#   "price": 2020000
-# }
-PUT {{baseURL}}/products/65d80aca20bd207bc907f84b
-X-Owner: 65d622aa8ad2fc8634aa83d6
+### Criar uma categoria
+POST {{baseURL}}/categories
+Content-Type: application/json
+X-Owner: 65e23d60cc5c3a22873b8cc6
 
 {
-  "price": 100000
+  "title": "Veículos Honda",
+  "description": "Carros e Motos"
 }
+
+### Criar um produto
+
+POST {{baseURL}}/products
+Content-Type: application/json
+X-Owner: 65e23d60cc5c3a22873b8cc6 
+
+{
+  "title": "Bros 190",
+  "description": "HONDA Bros 190 Preta",
+  "price": 1500000
+}
+
+### Atualizar um produto
+
+PUT {{baseURL}}/products/65e23f00cc5c3a22873b8cd2
+X-Owner: 65e23d60cc5c3a22873b8cc6
+
+{
+  "category": "65e23eafcc5c3a22873b8ccf"
+}
+
+### Consultar o catálogo do usuário
+
+GET {{baseURL}}/catalogs
+X-Owner: 65e23d60cc5c3a22873b8cc6
