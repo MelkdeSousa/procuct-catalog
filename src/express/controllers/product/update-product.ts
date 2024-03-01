@@ -11,6 +11,8 @@ import z from "zod";
  * @swagger
  * /users/products/{id}:
  *   put:
+ *     tags:
+ *       - Products
  *     summary: Update a product
  *     description: Update a product
  *     parameters:

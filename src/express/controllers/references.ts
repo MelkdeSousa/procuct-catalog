@@ -1,5 +1,11 @@
 /**
  * @swagger
+ *
+ * tags:
+ *   - name: Categories
+ *   - name: Products
+ *   - name: Users
+ *
  * components:
  *   responses:
  *     NotFoundOwnerOrCategory:
@@ -129,6 +135,14 @@
  *           type: string
  *         ownerId:
  *           types: string
+ *
+ *     UpdateCategoryRequest:
+ *       type: object
+ *       properties:
+ *         title:
+ *           type: string
+ *         description:
+ *           type: string
  *
  *     CommonError:
  *        type: object

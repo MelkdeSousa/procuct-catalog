@@ -9,6 +9,8 @@ import z from "zod";
  * @swagger
  * /users/categories:
  *   get:
+ *     tags:
+ *       - Categories
  *     summary: Get a list of categories
  *     description: Retrieve a paginated list of categories of one user
  *     parameters:

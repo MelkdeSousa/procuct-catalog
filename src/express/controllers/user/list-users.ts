@@ -8,6 +8,8 @@ import z from "zod";
  * @swagger
  * /users:
  *   get:
+ *     tags:
+ *       - Users
  *     summary: Get a list of users
  *     description: Retrieve a paginated list of users
  *     parameters:

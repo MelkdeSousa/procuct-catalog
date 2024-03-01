@@ -9,6 +9,8 @@ import z from "zod";
  * @swagger
  * /users/categories:
  *   post:
+ *     tags:
+ *       - Categories
  *     summary: Create a new category
  *     description: Create a new category
  *     parameters:

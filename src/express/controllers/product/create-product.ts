@@ -12,6 +12,8 @@ import z from "zod";
  * @swagger
  * /users/products:
  *   post:
+ *     tags:
+ *       - Products
  *     summary: Create a new product
  *     description: Create a new product
  *     parameters:

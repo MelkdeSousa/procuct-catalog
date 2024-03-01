@@ -7,6 +7,8 @@ import z from "zod";
  * @swagger
  * /users:
  *   post:
+ *     tags:
+ *       - Users
  *     summary: Create a new user
  *     requestBody:
  *       content:
