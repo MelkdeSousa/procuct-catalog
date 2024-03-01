@@ -11,14 +11,14 @@ Your task is to develop an API using Node.js for a product catalog management sy
 - [x] As a user, I want to associate a product with a category.
 - [ ] As a user, I want to update the data of a
   - [x] product; or
-  - [ ] category.
+  - [x] category.
 - [ ] As a user, I want to delete a
   - [ ] product; or
   - [ ] category from my catalog.
 - [x] A product can only be associated with one category at a time.
 - [x] Assume that products and categories belong only to one owner.
-- [ ] Keep in mind that this is an online product catalog, which means there will be multiple requests for editing items/categories per second, as well as accessing the catalog search endpoint.
-- [ ] Consider the product catalog as a JSON compilation of all available categories and items owned by a user. This way, the catalog search endpoint does not need to fetch information from the database.
+- [x] Keep in mind that this is an online product catalog, which means there will be multiple requests for editing items/categories per second, as well as accessing the catalog search endpoint.
+- [x] Consider the product catalog as a JSON compilation of all available categories and items owned by a user. This way, the catalog search endpoint does not need to fetch information from the database.
 - [x] Whenever there is a change in the product catalog, publish this change to the "catalog-emit" topic in the AWS SQS service.
 - [x] Implement a consumer that listens to catalog changes for a specific owner.
 - [x] When the consumer receives a message:
@@ -36,4 +36,4 @@ Your task is to develop an API using Node.js for a product catalog management sy
 - Node.js for the backend.
 - Express.js as the web framework.
 
-> [Repositório do desafio](https://github.com/githubanotaai/new-test-backend-nodejs)
+> [Challenge Repository](https://github.com/githubanotaai/new-test-backend-nodejs)

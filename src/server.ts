@@ -7,6 +7,7 @@ import { envs } from "./config/env";
 import { openapiSpecification } from "./config/openapiSpecs";
 import "./database/mongo/connection";
 import { zodErrorHandler } from "./express/middlewares";
+import { catalogsRouter } from "./express/routes/catalogs";
 import { categoriesRouter } from "./express/routes/categories";
 import { productsRouter } from "./express/routes/products";
 import { usersRouter } from "./express/routes/users";
@@ -25,7 +26,13 @@ app.use(
   }),
 );
 
-app.use("/users", usersRouter, productsRouter, categoriesRouter);
+app.use(
+  "/users",
+  usersRouter,
+  productsRouter,
+  categoriesRouter,
+  catalogsRouter,
+);
 
 app.use(zodErrorHandler);
 
