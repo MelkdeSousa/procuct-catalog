@@ -1,4 +1,5 @@
 import { envs } from "@/config/env";
+import { storage } from "@/config/storage";
 import { Job } from "@/contracts/job";
 import "@/database/mongo/connection";
 import {
@@ -7,18 +8,8 @@ import {
 } from "@/database/mongo/models-and-schemas/Category";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toCatalogOutput } from "@/dtos/catalog";
-import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import { Readable } from "stream";
-
-const client = new S3Client({
-  credentials: {
-    accessKeyId: envs.CLOUDFLARE_R2_ACCESS_KEY_ID,
-    secretAccessKey: envs.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
-  },
-  endpoint: `https://${envs.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  region: "auto",
-});
 
 export default {
   key: "catalog-emit",
@@ -51,7 +42,7 @@ export default {
     });
 
     const upload = new Upload({
-      client,
+      client: storage,
       params: {
         Bucket: envs.CLOUDFLARE_R2_BUCKET_NAME,
         Key: `${ownerId}-catalog.json`,
