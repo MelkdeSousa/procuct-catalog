@@ -2,7 +2,8 @@ import { ProductModel } from "@/database/mongo/models-and-schemas/Product";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toProductOutput } from "@/dtos/product";
 import { headersSchema, objectIdSchema } from "@/schemas";
-import { queue } from "@/services/queue";
+import Queue from "@/services/queue";
+
 import { RequestHandler } from "express";
 import z from "zod";
 
@@ -75,7 +76,7 @@ export const updateProduct: RequestHandler = async (req, res) => {
     return;
   }
 
-  await queue.publish("catalog-emit", ownerId.toString());
+  await Queue.add("catalog-emit", ownerId.toString());
 
   res.status(201).send(toProductOutput(product));
 };

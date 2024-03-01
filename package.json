@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev:http": "tsx watch --env-file=.env src/server.ts",
-    "dev:queue": "tsx watch --env-file=.env src/consumers/catalog.ts",
+    "dev:queue": "tsx watch --env-file=.env src/queue.ts",
     "dev:start": "concurrently -n http,queue \"npm run dev:http\" \"npm run dev:queue\"",
     "build": "tsc --build"
   },

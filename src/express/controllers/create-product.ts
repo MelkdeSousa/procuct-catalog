@@ -3,8 +3,9 @@ import { ProductModel } from "@/database/mongo/models-and-schemas/Product";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toProductOutput } from "@/dtos/product";
 import { headersSchema, objectIdSchema } from "@/schemas";
-import { queue } from "@/services/queue";
+import Queue from "@/services/queue";
 import { RequestHandler } from "express";
+import { Types } from "mongoose";
 import z from "zod";
 
 /**
@@ -65,7 +66,11 @@ export const createProduct: RequestHandler = async (req, res) => {
 
   await product.save();
 
-  await queue.publish("catalog-emit", ownerId.toString());
+  await Queue.add("catalog-emit", ownerId.toString());
+  await Queue.add("product.created", {
+    ownerId: new Types.ObjectId(ownerId).toString(),
+    productId: new Types.ObjectId(product.id).toString(),
+  });
 
   res.status(201).send(toProductOutput(product));
 };
