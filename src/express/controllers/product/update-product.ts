@@ -1,7 +1,7 @@
 import { ProductModel } from "@/database/mongo/models-and-schemas/Product";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toProductOutput } from "@/dtos/product";
-import { headersSchema, objectIdSchema } from "@/schemas";
+import { headersSchema, idParamSchema, objectIdSchema } from "@/schemas";
 import Queue from "@/services/queue";
 
 import { RequestHandler } from "express";
@@ -49,13 +49,10 @@ export const updateProduct: RequestHandler = async (req, res) => {
     price: z.number().optional(),
     category: objectIdSchema.optional(),
   });
-  const querySchema = z.object({
-    id: objectIdSchema,
-  });
 
   const { "x-owner": ownerId } = headersSchema.parse(req.headers);
   const body = bodySchema.parse(req.body);
-  const { id } = querySchema.parse(req.params);
+  const { id: productId } = idParamSchema.parse(req.params);
 
   const owner = await UserModel.findById(ownerId).exec();
   if (!owner) {
@@ -64,7 +61,7 @@ export const updateProduct: RequestHandler = async (req, res) => {
   }
 
   const product = await ProductModel.findOneAndUpdate(
-    id,
+    productId,
     {
       categoryId: body?.category,
       title: body?.title,

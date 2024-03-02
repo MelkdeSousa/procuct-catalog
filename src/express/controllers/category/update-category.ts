@@ -1,7 +1,7 @@
 import { CategoryModel } from "@/database/mongo/models-and-schemas/Category";
 import { UserModel } from "@/database/mongo/models-and-schemas/User";
 import { toCategoryOutput } from "@/dtos/category";
-import { headersSchema, objectIdSchema } from "@/schemas";
+import { headersSchema, idParamSchema } from "@/schemas";
 import Queue from "@/services/queue";
 
 import { RequestHandler } from "express";
@@ -47,13 +47,10 @@ export const updateCategory: RequestHandler = async (req, res) => {
     title: z.string().optional(),
     description: z.string().optional(),
   });
-  const querySchema = z.object({
-    id: objectIdSchema,
-  });
 
   const { "x-owner": ownerId } = headersSchema.parse(req.headers);
   const body = bodySchema.parse(req.body);
-  const { id: categoryId } = querySchema.parse(req.params);
+  const { id: categoryId } = idParamSchema.parse(req.params);
 
   const owner = await UserModel.findById(ownerId).exec();
   if (!owner) {
