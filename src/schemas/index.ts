@@ -23,3 +23,7 @@ export const objectIdSchema = z
 export const headersSchema = z.object({
   "x-owner": objectIdSchema,
 });
+
+export const idParamSchema = z.object({
+  id: objectIdSchema,
+});
