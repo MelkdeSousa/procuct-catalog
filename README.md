@@ -13,8 +13,8 @@ Your task is to develop an API using Node.js for a product catalog management sy
   - [x] product; or
   - [x] category.
 - [ ] As a user, I want to delete a
-  - [ ] product; or
-  - [ ] category from my catalog.
+  - [x] product; or
+  - [x] category from my catalog.
 - [x] A product can only be associated with one category at a time.
 - [x] Assume that products and categories belong only to one owner.
 - [x] Keep in mind that this is an online product catalog, which means there will be multiple requests for editing items/categories per second, as well as accessing the catalog search endpoint.

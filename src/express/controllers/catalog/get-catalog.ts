@@ -7,32 +7,20 @@ import { RequestHandler } from "express";
 
 /**
  * @swagger
- * /users/categories:
+ * /users/catalogs/:
  *   get:
  *     tags:
- *       - Categories
- *     summary: Get a list of categories
- *     description: Retrieve a paginated list of categories of one user
+ *       - Users
+ *     summary: Get the catalog of one user
  *     parameters:
- *       - $ref: '#/components/parameters/Page'
- *       - $ref: '#/components/parameters/Limit'
  *       - $ref: '#/components/parameters/X-Owner'
  *     responses:
  *       '200':
- *         description: A JSON array of users
+ *         description: A JSON with data of user, categories and products
  *         content:
  *           application/json:
  *             schema:
  *               type: object
- *               properties:
- *                 users:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/CreateCategoryResponse'
- *                 totalPages:
- *                   type: integer
- *                 currentPage:
- *                   type: integer
  */
 export const getCatalog: RequestHandler = async (req, res) => {
   const { "x-owner": ownerId } = headersSchema.parse(req.headers);
